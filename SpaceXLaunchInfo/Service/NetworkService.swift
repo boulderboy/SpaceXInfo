@@ -55,18 +55,19 @@ final class NetworkService {
         dataTsk.resume()
     }
     
-    func loadImages(for pathes: [String]) -> UIImage? {
+    func loadImages(for pathes: [String], completion: @escaping (Result<UIImage, Error>) -> Void)  {
         let path = pathes.randomElement() ?? pathes[0]
         guard let url = URL(string: path) else {
-            return nil
+            completion(.failure(Errors.invalidUrl))
+            return
         }
         
         var image = UIImage()
         let getDataTask = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else  { return }
             image = UIImage(data: data) ?? UIImage()
+            completion(.success(image))
         }
         getDataTask.resume()
-        return image
     }
 }

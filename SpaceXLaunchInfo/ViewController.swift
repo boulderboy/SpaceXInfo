@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ViewController: UIPageViewController {
+final class ViewController: UIViewController {
     
     let networkService = NetworkService()
     var rockets = [Rocket]()
@@ -51,6 +51,20 @@ final class ViewController: UIPageViewController {
         print(rocketImage.size)
     }
     
+    private func fetchInfo() {
+        let image = networkService.loadImages(for: rockets[0].flickrImages) { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let image):
+                self.rocketImage = image
+                DispatchQueue.main.async {
+                    self.setInfo()
+                }
+            }
+        }
+        
+    }
     
     private func loadData() {
         DispatchQueue.global().async {
@@ -59,8 +73,8 @@ final class ViewController: UIPageViewController {
                     switch result {
                     case .success(let rockets):
                         self?.rockets = rockets
-                        self?.rocketImage = (self?.networkService.loadImages(for: rockets[0].flickrImages))!
-                        self?.setInfo()
+                        self?.fetchInfo()
+                                        
                     case .failure(let error):
                         print(error)
                     }
