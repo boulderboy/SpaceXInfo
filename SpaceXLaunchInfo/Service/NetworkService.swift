@@ -5,7 +5,7 @@
 //  Created by Mac on 22.11.2022.
 //
 
-import Foundation
+import UIKit
 
 final class NetworkService {
     
@@ -46,7 +46,7 @@ final class NetworkService {
                 }
                 self.jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
                 let rockets = try self.jsonDecoder.decode([Rocket].self, from: data)
-                completion(.success(rockets))
+                    completion(.success(rockets))
             } catch {
                 print(error)
                 completion(.failure(Errors.decodeError))
@@ -55,4 +55,18 @@ final class NetworkService {
         dataTsk.resume()
     }
     
+    func loadImages(for pathes: [String]) -> UIImage? {
+        let path = pathes.randomElement() ?? pathes[0]
+        guard let url = URL(string: path) else {
+            return nil
+        }
+        
+        var image = UIImage()
+        let getDataTask = URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let data = data, error == nil else  { return }
+            image = UIImage(data: data) ?? UIImage()
+        }
+        getDataTask.resume()
+        return image
+    }
 }
