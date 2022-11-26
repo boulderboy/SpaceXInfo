@@ -7,7 +7,11 @@
 
 import UIKit
 
-final class ViewController: UIViewController {
+final class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+    
+    var infoTableView = UITableView()
+    var numbers = ["one", "two", "three", "four"]
     
     let networkService = NetworkService()
     var rockets = [Rocket]()
@@ -17,30 +21,71 @@ final class ViewController: UIViewController {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .blue
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
+    let rocketNameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
+        label.font = UIFont(name: Constants.fontGrotesque, size: 24)
+        return label
+    }()
+    
+    let settingsButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "Setting"), for: .normal)
+        button.contentMode = .scaleToFill
+        return button
+    }()
+        
     let infoView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .yellow
+        
+        infoTableView.delegate = self
+        infoTableView.dataSource = self
+        infoTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
+        infoTableView.translatesAutoresizingMaskIntoConstraints = false
+        infoTableView.backgroundColor = .blue
         
         view.addSubview(rocketBackgroundImage)
         view.addSubview(infoView)
         infoView.translatesAutoresizingMaskIntoConstraints = false
-        infoView.backgroundColor = .brown
+        infoView.backgroundColor = .black
         infoView.layer.cornerRadius = 32
+        
+        infoView.addSubview(rocketNameLabel)
+        infoView.addSubview(settingsButton)
+        infoView.addSubview(infoTableView)
         
         NSLayoutConstraint.activate([
             rocketBackgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
             rocketBackgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             rocketBackgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             rocketBackgroundImage.heightAnchor.constraint(equalToConstant: 500),
+            
             infoView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             infoView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            infoView.heightAnchor.constraint(equalToConstant: 564)
+            infoView.heightAnchor.constraint(equalToConstant: 564),
+            
+            rocketNameLabel.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 48),
+            rocketNameLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 32),
+            rocketNameLabel.heightAnchor.constraint(equalToConstant: 32),
+            
+            settingsButton.topAnchor.constraint(equalTo: rocketNameLabel.topAnchor),
+            settingsButton.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -32),
+            settingsButton.heightAnchor.constraint(equalToConstant: 32),
+            settingsButton.widthAnchor.constraint(equalToConstant: 32),
+            
+            infoTableView.topAnchor.constraint(equalTo: rocketNameLabel.bottomAnchor, constant: 20),
+            infoTableView.leadingAnchor.constraint(equalTo: infoView.leadingAnchor),
+            infoTableView.widthAnchor.constraint(equalToConstant: infoView.frame.width),
+            infoTableView.bottomAnchor.constraint(equalTo: infoView.bottomAnchor)
         ])
         
         loadData()
@@ -48,7 +93,31 @@ final class ViewController: UIViewController {
     
     private func setInfo() {
         rocketBackgroundImage.image = rocketImage
+        rocketNameLabel.text = rockets[0].name
         print(rocketImage.size)
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        3
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
+        let label = UILabel()
+        cell.addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: cell.topAnchor),
+            label.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
+            label.heightAnchor.constraint(equalToConstant: 50),
+            label.widthAnchor.constraint(equalToConstant: 100)
+        ])
+        label.text = numbers[indexPath.row]
+        return cell
     }
     
     private func fetchInfo() {
