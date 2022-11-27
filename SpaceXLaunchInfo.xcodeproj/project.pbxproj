@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04278484293363010064D0CE /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04278483293363010064D0CE /* PictureCell.swift */; };
+		0427848629336AB50064D0CE /* RocketNameLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0427848529336AB50064D0CE /* RocketNameLabelCell.swift */; };
+		04278488293373360064D0CE /* BasicParametrCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04278487293373360064D0CE /* BasicParametrCell.swift */; };
+		0427848A293378380064D0CE /* BasicParametrCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04278489293378380064D0CE /* BasicParametrCollectionViewCell.swift */; };
+		0427848C29337DD30064D0CE /* DetailedParametersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0427848B29337DD30064D0CE /* DetailedParametersCell.swift */; };
 		04B872FC292D07D30078BA89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B872FB292D07D30078BA89 /* AppDelegate.swift */; };
 		04B872FE292D07D30078BA89 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B872FD292D07D30078BA89 /* SceneDelegate.swift */; };
 		04B87300292D07D30078BA89 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B872FF292D07D30078BA89 /* ViewController.swift */; };
@@ -22,6 +27,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04278483293363010064D0CE /* PictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
+		0427848529336AB50064D0CE /* RocketNameLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketNameLabelCell.swift; sourceTree = "<group>"; };
+		04278487293373360064D0CE /* BasicParametrCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicParametrCell.swift; sourceTree = "<group>"; };
+		04278489293378380064D0CE /* BasicParametrCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicParametrCollectionViewCell.swift; sourceTree = "<group>"; };
+		0427848B29337DD30064D0CE /* DetailedParametersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedParametersCell.swift; sourceTree = "<group>"; };
 		04B872F8292D07D30078BA89 /* SpaceXLaunchInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceXLaunchInfo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04B872FB292D07D30078BA89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04B872FD292D07D30078BA89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +62,11 @@
 		04B872EF292D07D20078BA89 = {
 			isa = PBXGroup;
 			children = (
+				0427848B29337DD30064D0CE /* DetailedParametersCell.swift */,
+				04278489293378380064D0CE /* BasicParametrCollectionViewCell.swift */,
+				04278487293373360064D0CE /* BasicParametrCell.swift */,
+				0427848529336AB50064D0CE /* RocketNameLabelCell.swift */,
+				04278483293363010064D0CE /* PictureCell.swift */,
 				04B872FA292D07D30078BA89 /* SpaceXLaunchInfo */,
 				04B872F9292D07D30078BA89 /* Products */,
 			);
@@ -182,11 +197,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				04B87310292D0ACA0078BA89 /* RocketViewController.swift in Sources */,
+				0427848A293378380064D0CE /* BasicParametrCollectionViewCell.swift in Sources */,
 				04B87300292D07D30078BA89 /* ViewController.swift in Sources */,
 				04E770EA292F865000AFF24C /* InfoCollectionViewCell.swift in Sources */,
 				04B872FC292D07D30078BA89 /* AppDelegate.swift in Sources */,
+				0427848629336AB50064D0CE /* RocketNameLabelCell.swift in Sources */,
 				04B87313292D20350078BA89 /* Rocket.swift in Sources */,
+				04278484293363010064D0CE /* PictureCell.swift in Sources */,
 				04E770E0292F74B200AFF24C /* Constants.swift in Sources */,
+				0427848C29337DD30064D0CE /* DetailedParametersCell.swift in Sources */,
+				04278488293373360064D0CE /* BasicParametrCell.swift in Sources */,
 				04B87316292D23680078BA89 /* NetworkService.swift in Sources */,
 				04B872FE292D07D30078BA89 /* SceneDelegate.swift in Sources */,
 			);

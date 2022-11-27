@@ -36,7 +36,7 @@ final class ViewController: UIViewController, UITableViewDelegate, UITableViewDa
     let settingsButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "Setting"), for: .normal)
+        button.setBackgroundImage(UIImage(named: "Setting"), for: .normal)
         button.contentMode = .scaleToFill
         return button
     }()
