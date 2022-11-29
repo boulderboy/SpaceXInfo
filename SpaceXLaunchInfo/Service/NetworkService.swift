@@ -66,6 +66,7 @@ final class NetworkService {
         let getDataTask = URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else  { return }
             image = UIImage(data: data) ?? UIImage()
+            print(image.size)
             completion(.success(image))
         }
         getDataTask.resume()

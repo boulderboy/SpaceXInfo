@@ -7,14 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04278484293363010064D0CE /* PictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04278483293363010064D0CE /* PictureCell.swift */; };
+		04278484293363010064D0CE /* RocketBackgroundImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04278483293363010064D0CE /* RocketBackgroundImageCell.swift */; };
 		0427848629336AB50064D0CE /* RocketNameLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0427848529336AB50064D0CE /* RocketNameLabelCell.swift */; };
 		04278488293373360064D0CE /* BasicParametrCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04278487293373360064D0CE /* BasicParametrCell.swift */; };
 		0427848A293378380064D0CE /* BasicParametrCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04278489293378380064D0CE /* BasicParametrCollectionViewCell.swift */; };
 		0427848C29337DD30064D0CE /* DetailedParametersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0427848B29337DD30064D0CE /* DetailedParametersCell.swift */; };
+		0427848E2935EBE10064D0CE /* LaunchInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0427848D2935EBE10064D0CE /* LaunchInfoCell.swift */; };
+		042784902935EDE80064D0CE /* SectionNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0427848F2935EDE80064D0CE /* SectionNameCell.swift */; };
+		042784922935EF3A0064D0CE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042784912935EF3A0064D0CE /* ViewController.swift */; };
 		04B872FC292D07D30078BA89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B872FB292D07D30078BA89 /* AppDelegate.swift */; };
 		04B872FE292D07D30078BA89 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B872FD292D07D30078BA89 /* SceneDelegate.swift */; };
-		04B87300292D07D30078BA89 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B872FF292D07D30078BA89 /* ViewController.swift */; };
+		04B87300292D07D30078BA89 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B872FF292D07D30078BA89 /* FirstViewController.swift */; };
 		04B87303292D07D30078BA89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04B87301292D07D30078BA89 /* Main.storyboard */; };
 		04B87305292D07D50078BA89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04B87304292D07D50078BA89 /* Assets.xcassets */; };
 		04B87308292D07D50078BA89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04B87306292D07D50078BA89 /* LaunchScreen.storyboard */; };
@@ -27,15 +30,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		04278483293363010064D0CE /* PictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureCell.swift; sourceTree = "<group>"; };
+		04278483293363010064D0CE /* RocketBackgroundImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketBackgroundImageCell.swift; sourceTree = "<group>"; };
 		0427848529336AB50064D0CE /* RocketNameLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RocketNameLabelCell.swift; sourceTree = "<group>"; };
 		04278487293373360064D0CE /* BasicParametrCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicParametrCell.swift; sourceTree = "<group>"; };
 		04278489293378380064D0CE /* BasicParametrCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicParametrCollectionViewCell.swift; sourceTree = "<group>"; };
 		0427848B29337DD30064D0CE /* DetailedParametersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedParametersCell.swift; sourceTree = "<group>"; };
+		0427848D2935EBE10064D0CE /* LaunchInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchInfoCell.swift; sourceTree = "<group>"; };
+		0427848F2935EDE80064D0CE /* SectionNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionNameCell.swift; sourceTree = "<group>"; };
+		042784912935EF3A0064D0CE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		04B872F8292D07D30078BA89 /* SpaceXLaunchInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceXLaunchInfo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04B872FB292D07D30078BA89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04B872FD292D07D30078BA89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		04B872FF292D07D30078BA89 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		04B872FF292D07D30078BA89 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		04B87302292D07D30078BA89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		04B87304292D07D50078BA89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04B87307292D07D50078BA89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -62,11 +68,13 @@
 		04B872EF292D07D20078BA89 = {
 			isa = PBXGroup;
 			children = (
+				0427848F2935EDE80064D0CE /* SectionNameCell.swift */,
+				0427848D2935EBE10064D0CE /* LaunchInfoCell.swift */,
 				0427848B29337DD30064D0CE /* DetailedParametersCell.swift */,
 				04278489293378380064D0CE /* BasicParametrCollectionViewCell.swift */,
 				04278487293373360064D0CE /* BasicParametrCell.swift */,
 				0427848529336AB50064D0CE /* RocketNameLabelCell.swift */,
-				04278483293363010064D0CE /* PictureCell.swift */,
+				04278483293363010064D0CE /* RocketBackgroundImageCell.swift */,
 				04B872FA292D07D30078BA89 /* SpaceXLaunchInfo */,
 				04B872F9292D07D30078BA89 /* Products */,
 			);
@@ -88,7 +96,8 @@
 				04B87311292D20280078BA89 /* Model */,
 				04B872FB292D07D30078BA89 /* AppDelegate.swift */,
 				04B872FD292D07D30078BA89 /* SceneDelegate.swift */,
-				04B872FF292D07D30078BA89 /* ViewController.swift */,
+				042784912935EF3A0064D0CE /* ViewController.swift */,
+				04B872FF292D07D30078BA89 /* FirstViewController.swift */,
 				04B87301292D07D30078BA89 /* Main.storyboard */,
 				04B87304292D07D50078BA89 /* Assets.xcassets */,
 				04B87306292D07D50078BA89 /* LaunchScreen.storyboard */,
@@ -198,16 +207,19 @@
 			files = (
 				04B87310292D0ACA0078BA89 /* RocketViewController.swift in Sources */,
 				0427848A293378380064D0CE /* BasicParametrCollectionViewCell.swift in Sources */,
-				04B87300292D07D30078BA89 /* ViewController.swift in Sources */,
+				0427848E2935EBE10064D0CE /* LaunchInfoCell.swift in Sources */,
+				04B87300292D07D30078BA89 /* FirstViewController.swift in Sources */,
 				04E770EA292F865000AFF24C /* InfoCollectionViewCell.swift in Sources */,
 				04B872FC292D07D30078BA89 /* AppDelegate.swift in Sources */,
 				0427848629336AB50064D0CE /* RocketNameLabelCell.swift in Sources */,
 				04B87313292D20350078BA89 /* Rocket.swift in Sources */,
-				04278484293363010064D0CE /* PictureCell.swift in Sources */,
+				04278484293363010064D0CE /* RocketBackgroundImageCell.swift in Sources */,
+				042784902935EDE80064D0CE /* SectionNameCell.swift in Sources */,
 				04E770E0292F74B200AFF24C /* Constants.swift in Sources */,
 				0427848C29337DD30064D0CE /* DetailedParametersCell.swift in Sources */,
 				04278488293373360064D0CE /* BasicParametrCell.swift in Sources */,
 				04B87316292D23680078BA89 /* NetworkService.swift in Sources */,
+				042784922935EF3A0064D0CE /* ViewController.swift in Sources */,
 				04B872FE292D07D30078BA89 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

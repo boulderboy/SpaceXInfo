@@ -2,137 +2,65 @@
 //  ViewController.swift
 //  SpaceXLaunchInfo
 //
-//  Created by Mac on 22.11.2022.
+//  Created by Mac on 29.11.2022.
 //
 
 import UIKit
 
 final class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    private let networkService = NetworkService()
+    private var rockets = [Rocket]()
+    private var rocketImage = UIImage()
     
-    var infoTableView = UITableView()
-    var numbers = ["one", "two", "three", "four"]
-    
-    let networkService = NetworkService()
-    var rockets = [Rocket]()
-    var rocketImage = UIImage()
-    
-    let rocketBackgroundImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .blue
-        imageView.contentMode = .scaleAspectFill
-        return imageView
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "headerId")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "rocketNameCellId")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "launchInfoCellId")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "detailedParametrsCellId")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "sectionNameCellId")
+        tableView.backgroundColor = .black
+        return tableView
     }()
     
-    let rocketNameLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
-        label.font = UIFont(name: Constants.fontGrotesque, size: 24)
-        return label
-    }()
+    private enum Row {
+        case header(image: UIImage)
+        case rocketName(title: String)
+        case launchInfo(info: String, value: String)
+        case detailedInfo(info: String, value: String, measurment: String?)
+        case sectionName(title: String)
+    }
     
-    let settingsButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setBackgroundImage(UIImage(named: "Setting"), for: .normal)
-        button.contentMode = .scaleToFill
-        return button
-    }()
-        
-    let infoView = UIView()
+    private var rows: [Row] = [] {
+            didSet {
+                tableView.reloadData()
+            }
+        }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        infoTableView.delegate = self
-        infoTableView.dataSource = self
-        infoTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
-        infoTableView.translatesAutoresizingMaskIntoConstraints = false
-        infoTableView.backgroundColor = .blue
-        
-        view.addSubview(rocketBackgroundImage)
-        view.addSubview(infoView)
-        infoView.translatesAutoresizingMaskIntoConstraints = false
-        infoView.backgroundColor = .black
-        infoView.layer.cornerRadius = 32
-        
-        infoView.addSubview(rocketNameLabel)
-        infoView.addSubview(settingsButton)
-        infoView.addSubview(infoTableView)
-        
-        NSLayoutConstraint.activate([
-            rocketBackgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
-            rocketBackgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            rocketBackgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            rocketBackgroundImage.heightAnchor.constraint(equalToConstant: 500),
-            
-            infoView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            infoView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            infoView.heightAnchor.constraint(equalToConstant: 564),
-            
-            rocketNameLabel.topAnchor.constraint(equalTo: infoView.topAnchor, constant: 48),
-            rocketNameLabel.leadingAnchor.constraint(equalTo: infoView.leadingAnchor, constant: 32),
-            rocketNameLabel.heightAnchor.constraint(equalToConstant: 32),
-            
-            settingsButton.topAnchor.constraint(equalTo: rocketNameLabel.topAnchor),
-            settingsButton.trailingAnchor.constraint(equalTo: infoView.trailingAnchor, constant: -32),
-            settingsButton.heightAnchor.constraint(equalToConstant: 32),
-            settingsButton.widthAnchor.constraint(equalToConstant: 32),
-            
-            infoTableView.topAnchor.constraint(equalTo: rocketNameLabel.bottomAnchor, constant: 20),
-            infoTableView.leadingAnchor.constraint(equalTo: infoView.leadingAnchor),
-            infoTableView.widthAnchor.constraint(equalToConstant: infoView.frame.width),
-            infoTableView.bottomAnchor.constraint(equalTo: infoView.bottomAnchor)
-        ])
-        
         loadData()
-    }
-    
-    private func setInfo() {
-        rocketBackgroundImage.image = rocketImage
-        rocketNameLabel.text = rockets[0].name
-        print(rocketImage.size)
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        2
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
-        let label = UILabel()
-        cell.addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            label.topAnchor.constraint(equalTo: cell.topAnchor),
-            label.leadingAnchor.constraint(equalTo: cell.leadingAnchor),
-            label.heightAnchor.constraint(equalToConstant: 50),
-            label.widthAnchor.constraint(equalToConstant: 100)
-        ])
-        label.text = numbers[indexPath.row]
-        return cell
-    }
-    
-    private func fetchInfo() {
-        let image = networkService.loadImages(for: rockets[0].flickrImages) { result in
-            switch result {
-            case .failure(let error):
-                print(error)
-            case .success(let image):
-                self.rocketImage = image
-                DispatchQueue.main.async {
-                    self.setInfo()
-                }
-            }
-        }
+        setUpSubviews()
+        setUpConstraints()
         
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    private func setUpSubviews() {
+        view.addSubview(tableView)
+    }
+    
+    private func setUpConstraints() {
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
     private func loadData() {
@@ -142,8 +70,7 @@ final class ViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     switch result {
                     case .success(let rockets):
                         self?.rockets = rockets
-                        self?.fetchInfo()
-                                        
+                        self?.loadImage()
                     case .failure(let error):
                         print(error)
                     }
@@ -152,98 +79,105 @@ final class ViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
     }
+    
+    private func loadImage() {
+        let image = networkService.loadImages(for: rockets[0].flickrImages) { result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let image):
+                self.rocketImage = image
+                DispatchQueue.main.async {
+                    self.createRows()
+                }
+            }
+        }
+    }
+    
+    private func createRows() {
+        var rowsForTable: [Row] = []
+        
+        let headerRow = Row.header(image: rocketImage)
+        rowsForTable.append(headerRow)
+        
+        let rocketName = Row.rocketName(title: rockets[0].name)
+        rowsForTable.append(rocketName)
+        
+        let firstLaunch = Row.launchInfo(info: "Первый запуск", value: rockets[0].firstFlight)
+        rowsForTable.append(firstLaunch)
+        
+        let country = Row.launchInfo(info: "Страна", value: rockets[0].country)
+        rowsForTable.append(country)
+        
+        let costPerLaunch  = Row.launchInfo(info: "Стоимость запуска", value: String(rockets[0].costPerLaunch) )
+        rowsForTable.append(costPerLaunch)
+        
+        let firstStageInfo = Row.sectionName(title: "Первая ступень")
+        rowsForTable.append(firstStageInfo)
+        
+        let numberOfEngines = Row.detailedInfo(info: "Количество двигателей", value: String(rockets[0].firstStage.engines) , measurment: nil)
+        rowsForTable.append(numberOfEngines)
+        
+        let fuelAmountTons = Row.detailedInfo(info: "Количество топлива", value: String(rockets[0].firstStage.fuelAmountTons) , measurment: "ton")
+        rowsForTable.append(fuelAmountTons)
+        
+        let burnTime = Row.detailedInfo(info: "Время сгорания", value: String(rockets[0].firstStage.burnTimeSEC ?? 0) , measurment: "sec")
+        rowsForTable.append(burnTime)
+        
+        let secondStageInfo = Row.sectionName(title: "Вторая ступень")
+        rowsForTable.append(secondStageInfo)
+        
+        let numberOfEnginesInSecondStage = Row.detailedInfo(info: "Количество двигателей", value: String(rockets[0].secondStage.engines) , measurment: nil)
+        rowsForTable.append(numberOfEnginesInSecondStage)
+        
+        let fuelAmountTonsInSecondStage = Row.detailedInfo(info: "Количество топлива", value: String(rockets[0].secondStage.fuelAmountTons) , measurment: "ton")
+        rowsForTable.append(fuelAmountTonsInSecondStage)
+        
+        let burnTimeInSecondStage = Row.detailedInfo(info: "Время сгорания", value: String(rockets[0].secondStage.burnTimeSEC ?? 0) , measurment: "sec")
+        rowsForTable.append(burnTimeInSecondStage)
+        
+        rows = rowsForTable
+        print("rows are created")
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        rows.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let row = rows[indexPath.row]
+        print(row)
+        
+        switch row {
+            
+        case .header(image: let rocketImage):
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "headerId") as? RocketBackgroundImageCell {
+                cell.configure(with: rocketImage)
+                return cell
+            }
+        case .rocketName(title: let title):
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "rocketNameCellId") as? RocketNameLabelCell {
+                cell.configure(rocketName: title)
+                return cell
+            }
+        case .launchInfo(info: let info, value: let value):
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "launchInfoCellId") as? LaunchInfoCell {
+                cell.configure(info: info, value: value)
+                return cell
+            }
+        case .detailedInfo(info: let info, value: let value, measurment: let measurment):
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "detailedParametrsCellId") as? DetailedParametersCell {
+                cell.configure(info: info, value: value, measurment: measurment)
+                return cell
+            }
+        case .sectionName(title: let title):
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "sectionNameCellId") as? SectionNameCell {
+                cell.configure(section: title)
+                return cell
+            }
+        }
+        return UITableViewCell()
+    }
+    
 }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//    var rocketVeiwControllers = [UIViewController]()
-//    let pageControl = UIPageControl()
-//    let networkService = NetworkService()
-//    var rockets = [Rocket]()
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        self.delegate = self
-//        self.dataSource = self
-//        rocketVeiwControllers = [
-//                {
-//                    let vc = RocketViewController()
-//                    vc.view.backgroundColor = .red
-//                    return vc
-//                }(),
-//                {
-//                    let vc = RocketViewController()
-//                    vc.view.backgroundColor = .green
-//                    return vc
-//                }(),
-//                {
-//                    let vc = RocketViewController()
-//                    vc.view.backgroundColor = .blue
-//                    return vc
-//                }()
-//            ]
-//
-//
-//        networkService.getRockets { result in
-//            switch result {
-//            case .success(let result):
-//                self.rockets = result
-//                print(self.rockets[0].name)
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//
-//        view.addSubview(pageControl)
-//        let appearance = UIPageControl.appearance(whenContainedInInstancesOf: [UIPageViewController.self])
-//        appearance.pageIndicatorTintColor = UIColor.black
-//        appearance.currentPageIndicatorTintColor = UIColor.white
-//        appearance.numberOfPages = rocketVeiwControllers.count
-//        pageControl.translatesAutoresizingMaskIntoConstraints = false
-//        NSLayoutConstraint.activate([
-//            pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//            pageControl.heightAnchor.constraint(equalToConstant: 50),
-//            pageControl.widthAnchor.constraint(equalToConstant: view.bounds.width)
-//        ])
-//        setViewControllers([rocketVeiwControllers[2]], direction: .forward, animated: true)
-//    }
-//
-//    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-//        guard let index = rocketVeiwControllers.firstIndex(of: viewController) else { return nil}
-//        if index == 0 {
-//            return rocketVeiwControllers.last
-//        } else {
-//            return rocketVeiwControllers[index - 1]
-//        }
-//    }
-//
-//    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-//        guard let index = rocketVeiwControllers.firstIndex(of: viewController) else { return nil}
-//        if index == rocketVeiwControllers.count - 1 {
-//            return rocketVeiwControllers.first
-//        } else {
-//            return rocketVeiwControllers[index + 1]
-//        }
-//
-//    }
-//
-////    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-////        currentIndex
-////    }
-////
-////    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-////        rocketVeiwControllers.count
-////    }
-

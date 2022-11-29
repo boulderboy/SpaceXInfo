@@ -33,6 +33,7 @@ final class DetailedParametersCell: UITableViewCell {
         label.font = UIFont(name: Constants.fontGrotesque, size: 16)
         label.textColor = UIColor(red: 0.56, green: 0.56, blue: 0.56, alpha: 1.00)
         label.textAlignment = .left
+        label.text = ""
         return label
     }()
     
@@ -54,8 +55,21 @@ final class DetailedParametersCell: UITableViewCell {
             parametrValueLabel.topAnchor.constraint(equalTo: topAnchor),
             parametrValueLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -68),
             parametrValueLabel.heightAnchor.constraint(equalToConstant: 24),
-            parametrValueLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: frame.width / 2)
+            parametrValueLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: frame.width / 2),
+            
+            parametrMeasurmentsLabel.topAnchor.constraint(equalTo: topAnchor),
+            parametrMeasurmentsLabel.leadingAnchor.constraint(equalTo: parametrValueLabel.trailingAnchor, constant: 8),
+            parametrMeasurmentsLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
+            parametrMeasurmentsLabel.heightAnchor.constraint(equalToConstant: 24)
         ])
+    }
+    
+    func configure(info: String, value: String, measurment: String?) {
+        parametrNameLabel.text = info
+        parametrValueLabel.text = value
+        if let measurment = measurment {
+            parametrMeasurmentsLabel.text = measurment
+        }
     }
     
     required init?(coder: NSCoder) {

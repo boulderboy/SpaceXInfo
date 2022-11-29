@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class BasicParametrCell: UITableViewCell {
+final class BasicParametrCell: UITableViewCell, UICollectionViewDelegate {
     
     var basicParametrs: [String: Int]?
     
@@ -19,6 +19,7 @@ final class BasicParametrCell: UITableViewCell {
     
     private func setupCollectionView() {
         parametersCollectionView.numberOfItems(inSection: 4)
+        parametersCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "collectionCellId")
     }
     
 }
