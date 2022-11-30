@@ -71,4 +71,31 @@ final class NetworkService {
         }
         getDataTask.resume()
     }
+    
+    func getLaunches(completion: @escaping (Result<[Launch], Error>) -> Void) {
+        guard let url = URL(string: Constants.launchUrl) else {
+            completion(.failure(Errors.invalidUrl))
+            return
+        }
+        let request = URLRequest(url: url)
+        let dataTsk = urlSession.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(Errors.invalidUrl))
+                return
+            }
+            do {
+                guard let data = data else {
+                    completion(.failure(Errors.responseError))
+                    return
+                }
+                self.jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+                let launches = try self.jsonDecoder.decode([Launch].self, from: data)
+                    completion(.success(launches))
+            } catch {
+                print(error)
+                completion(.failure(Errors.decodeError))
+            }
+        }
+        dataTsk.resume()
+    }
 }

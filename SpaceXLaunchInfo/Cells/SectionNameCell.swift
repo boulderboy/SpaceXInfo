@@ -14,17 +14,18 @@ final class SectionNameCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.font = UIFont(name: Constants.fontGrotesque, size: 16)
-        label.textColor = UIColor(red: 0.79, green: 0.79, blue: 0.79, alpha: 1.00)
+        label.textColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
         return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        backgroundColor = .black
         addSubview(sectionNameLabel)
         
         NSLayoutConstraint.activate([
-            sectionNameLabel.topAnchor.constraint(equalTo: topAnchor),
+            sectionNameLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
             sectionNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
             sectionNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
             sectionNameLabel.heightAnchor.constraint(equalToConstant: 24)

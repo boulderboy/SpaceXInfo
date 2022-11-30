@@ -47,17 +47,17 @@ final class DetailedParametersCell: UITableViewCell {
         addSubview(parametrMeasurmentsLabel)
         
         NSLayoutConstraint.activate([
-            parametrNameLabel.topAnchor.constraint(equalTo: topAnchor),
+            parametrNameLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
             parametrNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
             parametrNameLabel.heightAnchor.constraint(equalToConstant: 24),
             parametrNameLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -(frame.width / 2)),
             
-            parametrValueLabel.topAnchor.constraint(equalTo: topAnchor),
+            parametrValueLabel.bottomAnchor.constraint(equalTo: parametrNameLabel.bottomAnchor),
             parametrValueLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -68),
             parametrValueLabel.heightAnchor.constraint(equalToConstant: 24),
             parametrValueLabel.leadingAnchor.constraint(greaterThanOrEqualTo: leadingAnchor, constant: frame.width / 2),
             
-            parametrMeasurmentsLabel.topAnchor.constraint(equalTo: topAnchor),
+            parametrMeasurmentsLabel.bottomAnchor.constraint(equalTo: parametrNameLabel.bottomAnchor),
             parametrMeasurmentsLabel.leadingAnchor.constraint(equalTo: parametrValueLabel.trailingAnchor, constant: 8),
             parametrMeasurmentsLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -32),
             parametrMeasurmentsLabel.heightAnchor.constraint(equalToConstant: 24)

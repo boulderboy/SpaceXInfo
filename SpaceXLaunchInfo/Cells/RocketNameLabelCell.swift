@@ -13,6 +13,7 @@ final class RocketNameLabelCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: Constants.fontGrotesque, size: 24)
+        label.textColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
         return label
     }()
     
@@ -42,6 +43,7 @@ final class RocketNameLabelCell: UITableViewCell {
             rocketNameLabel.topAnchor.constraint(equalTo: topAnchor),
             rocketNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 32),
             rocketNameLabel.heightAnchor.constraint(equalToConstant: 32),
+            rocketNameLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32),
             rocketNameLabel.trailingAnchor.constraint(lessThanOrEqualTo: settingsButton.leadingAnchor, constant: -135),
             
             settingsButton.topAnchor.constraint(equalTo: rocketNameLabel.topAnchor),

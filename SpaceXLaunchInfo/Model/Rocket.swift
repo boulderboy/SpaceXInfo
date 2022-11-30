@@ -66,7 +66,7 @@ struct FirstStage: Decodable {
     let reusable: Bool
     let engines: Int
     let fuelAmountTons: Double
-    let burnTimeSEC: Int?
+    let burnTimeSec: Int?
 }
 
 struct LandingLegs: Decodable {
@@ -92,7 +92,7 @@ struct SecondStage: Decodable {
     let reusable: Bool
     let engines: Int
     let fuelAmountTons: Double
-    let burnTimeSEC: Int?
+    let burnTimeSec: Int?
 }
 
 struct Payloads: Decodable {

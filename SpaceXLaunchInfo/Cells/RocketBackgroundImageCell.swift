@@ -12,8 +12,9 @@ final class RocketBackgroundImageCell: UITableViewCell {
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .black
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
     
@@ -28,6 +29,7 @@ final class RocketBackgroundImageCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         backgroundColor = .black
     
         addSubview(backgroundImageView)
@@ -37,12 +39,12 @@ final class RocketBackgroundImageCell: UITableViewCell {
             backgroundImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
             backgroundImageView.topAnchor.constraint(equalTo: topAnchor),
             backgroundImageView.heightAnchor.constraint(equalToConstant: 296),
-            backgroundImageView.widthAnchor.constraint(equalToConstant: frame.width),
             
+            roundedBottom.topAnchor.constraint(equalTo: topAnchor, constant: 252),
             roundedBottom.bottomAnchor.constraint(equalTo: bottomAnchor),
-            roundedBottom.leadingAnchor.constraint(equalTo: leadingAnchor),
-            roundedBottom.heightAnchor.constraint(equalToConstant: 48),
-            roundedBottom.widthAnchor.constraint(equalToConstant: frame.width)
+            roundedBottom.leadingAnchor.constraint(equalTo: leadingAnchor, constant: -2),
+            roundedBottom.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 2),
+            roundedBottom.heightAnchor.constraint(equalToConstant: 48)
         ])
     }
     
