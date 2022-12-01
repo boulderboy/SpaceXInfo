@@ -9,11 +9,20 @@ import UIKit
 
 final class BasicParametrCollectionViewCell: UICollectionViewCell {
     
+    private enum UI {
+        static let parametrValueTextSize = CGFloat(16)
+        static let parametrValueTextColor = UIColor.white
+        static let parameterNameTextSize = CGFloat(14)
+        static let parameterNameTextColor = UIColor(red: 0.56, green: 0.56, blue: 0.56, alpha: 1.00)
+        static let cellBackgroundColor = UIColor(red: 0.13, green: 0.13, blue: 0.13, alpha: 1.00)
+        static let cellCornerRadius = CGFloat(32)
+    }
+    
     private let parametrValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: Constants.fontGrotesque, size: 16)
-        label.textColor = .white
+        label.font = UIFont(name: Constants.fontGrotesque, size: UI.parametrValueTextSize)
+        label.textColor = UI.parametrValueTextColor
         label.textAlignment = .center
         return label
     }()
@@ -21,17 +30,8 @@ final class BasicParametrCollectionViewCell: UICollectionViewCell {
     private let parameterNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: Constants.fontGrotesque, size: 14)
-        label.textColor = UIColor(red: 0.56, green: 0.56, blue: 0.56, alpha: 1.00)
-        label.textAlignment = .center
-        return label
-    }()
-    
-    private let measurmentUnitLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: Constants.fontGrotesque, size: 14)
-        label.textColor = UIColor(red: 0.56, green: 0.56, blue: 0.56, alpha: 1.00)
+        label.font = UIFont(name: Constants.fontGrotesque, size: UI.parameterNameTextSize)
+        label.textColor = UI.parameterNameTextColor
         label.textAlignment = .center
         return label
     }()
@@ -39,12 +39,11 @@ final class BasicParametrCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = UIColor(red: 0.13, green: 0.13, blue: 0.13, alpha: 1.00)
-        layer.cornerRadius = 32
+        backgroundColor = UI.cellBackgroundColor
+        layer.cornerRadius = UI.cellCornerRadius
         
         addSubview(parameterNameLabel)
         addSubview(parametrValueLabel)
-        addSubview(measurmentUnitLabel)
         
         NSLayoutConstraint.activate([
             parametrValueLabel.topAnchor.constraint(equalTo: topAnchor, constant: 28),
@@ -56,10 +55,6 @@ final class BasicParametrCollectionViewCell: UICollectionViewCell {
             parameterNameLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             parametrValueLabel.widthAnchor.constraint(equalToConstant: frame.width),
             parametrValueLabel.heightAnchor.constraint(equalToConstant: 20),
-            
-            measurmentUnitLabel.topAnchor.constraint(equalTo: parameterNameLabel.topAnchor),
-            measurmentUnitLabel.leadingAnchor.constraint(equalTo: parameterNameLabel.trailingAnchor, constant: 2),
-            measurmentUnitLabel.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
     

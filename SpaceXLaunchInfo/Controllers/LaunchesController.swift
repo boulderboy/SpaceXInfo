@@ -1,4 +1,3 @@
-
 //
 //  LaunchesController.swift
 //  SpaceXLaunchInfo
@@ -8,7 +7,7 @@
 
 import UIKit
 
-final class ViewController:
+final class LaunchViewController:
     UIViewController,
     UITableViewDelegate,
     UITableViewDataSource {
@@ -30,12 +29,15 @@ final class ViewController:
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        title = "Falcon 1"
         view.backgroundColor = .black
         tableView.backgroundColor = .black
         tableView.delegate = self
         tableView.dataSource = self
         view.addSubview(tableView)
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white, .font: UIFont(name: Constants.fontGrotesque, size: 16)]
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.tintColor = .white
         setUpConstraints()
         loadData()
     }

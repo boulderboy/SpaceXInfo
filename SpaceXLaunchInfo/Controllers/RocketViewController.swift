@@ -10,6 +10,7 @@ import UIKit
 
 final class RocketViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    //MARK: - Private properties
     private let networkService = NetworkService()
     private var rockets = [Rocket]()
     private var launches = [Launch]()
@@ -19,13 +20,13 @@ final class RocketViewController: UIViewController, UITableViewDelegate, UITable
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(RocketBackgroundImageCell.self, forCellReuseIdentifier: "headerId")
-        tableView.register(RocketNameLabelCell.self, forCellReuseIdentifier: "rocketNameCellId")
-        tableView.register(LaunchInfoCell.self, forCellReuseIdentifier: "launchInfoCellId")
-        tableView.register(DetailedParametersCell.self, forCellReuseIdentifier: "detailedParametrsCellId")
-        tableView.register(SectionNameCell.self, forCellReuseIdentifier: "sectionNameCellId")
-        tableView.register(LaunchesButtonCell.self, forCellReuseIdentifier: "launchesButtonCellId")
-        tableView.register(BasicParametrCell.self, forCellReuseIdentifier: "basicParametrsCellId")
+        tableView.register(RocketBackgroundImageCell.self, forCellReuseIdentifier: ReusableIds.backgroundImageCell)
+        tableView.register(RocketNameLabelCell.self, forCellReuseIdentifier: ReusableIds.rocketNameCell)
+        tableView.register(LaunchInfoCell.self, forCellReuseIdentifier: ReusableIds.launchInfoCell)
+        tableView.register(DetailedParametersCell.self, forCellReuseIdentifier: ReusableIds.detailedParametersCell)
+        tableView.register(SectionNameCell.self, forCellReuseIdentifier: ReusableIds.sectionNameCell)
+        tableView.register(LaunchesButtonCell.self, forCellReuseIdentifier: ReusableIds.launchesButtonCell)
+        tableView.register(BasicParametrCell.self, forCellReuseIdentifier: ReusableIds.basicParametersCell)
         tableView.backgroundColor = .black
         tableView.allowsSelection = false
         tableView.contentInsetAdjustmentBehavior = .never
@@ -48,17 +49,19 @@ final class RocketViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
+    //MARK: - ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadData()
         setUpSubviews()
         setUpConstraints()
-        
         tableView.delegate = self
         tableView.dataSource = self
+        
     }
     
+    //MARK: - Private methods
     private func setUpSubviews() {
         view.addSubview(tableView)
     }
@@ -89,7 +92,7 @@ final class RocketViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    func getBasicParametrs() {
+    private func getBasicParametrs() {
         let heightInMeters = rockets[0].height.meters ?? 0
         let heightInFeets = rockets[0].height.feet ?? 0
         let diametrInMeters = rockets[0].diameter.meters ?? 0
@@ -138,7 +141,7 @@ final class RocketViewController: UIViewController, UITableViewDelegate, UITable
             rowsForTable.append(basicParametrs)
         }
         
-        let date = dateFormat(date: rockets[0].firstFlight) ?? rockets[0].firstFlight
+        let date = Services.dateFormat(date: rockets[0].firstFlight) ?? rockets[0].firstFlight
         let firstLaunch = Row.launchInfo(info: "Первый запуск", value: date)
         rowsForTable.append(firstLaunch)
         
@@ -176,27 +179,10 @@ final class RocketViewController: UIViewController, UITableViewDelegate, UITable
         rowsForTable.append(launchesButton)
         
         rows = rowsForTable
-        print("rows are created")
     }
     
-    func dateFormat(date: String) -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        guard let dateValue = dateFormatter.date(from: date) else { return nil }
-        if #available(iOS 15.0, *) {
-            let formattedDate = dateValue.formatted(
-                Date.FormatStyle()
-                    .day(.twoDigits)
-                    .month(.wide)
-                    .year(.defaultDigits)
-                    .locale(Locale(identifier: "ru_RU"))
-            )
-            return formattedDate
-        } else {
-            // Fallback on earlier versions
-        }
-        return nil
-    }
+    //MARK: - UITableViewDelegate, UITebleViewDataSource
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         rows.count
@@ -209,41 +195,54 @@ final class RocketViewController: UIViewController, UITableViewDelegate, UITable
         switch row {
             
         case .header(image: let rocketImage):
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "headerId") as? RocketBackgroundImageCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIds.backgroundImageCell) as? RocketBackgroundImageCell {
                 cell.configure(with: rocketImage)
                 return cell
             }
         case .rocketName(title: let title):
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "rocketNameCellId") as? RocketNameLabelCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIds.rocketNameCell) as? RocketNameLabelCell {
                 cell.configure(rocketName: title)
                 return cell
             }
         case .launchInfo(info: let info, value: let value):
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "launchInfoCellId") as? LaunchInfoCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIds.launchInfoCell) as? LaunchInfoCell {
                 cell.configure(info: info, value: value)
                 return cell
             }
         case .detailedInfo(info: let info, value: let value, measurment: let measurment):
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "detailedParametrsCellId") as? DetailedParametersCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIds.detailedParametersCell) as? DetailedParametersCell {
                 cell.configure(info: info, value: value, measurment: measurment)
                 return cell
             }
         case .sectionName(title: let title):
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "sectionNameCellId") as? SectionNameCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIds.sectionNameCell) as? SectionNameCell {
                 cell.configure(section: title)
                 return cell
             }
         case .launchesButton:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "launchesButtonCellId") as? LaunchesButtonCell {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIds.launchesButtonCell) as? LaunchesButtonCell {
+                cell.launchesButton.tag = indexPath.row
+                cell.buttonAction = { [unowned self] in
+                    print("yes")
+                    navigationController?.pushViewController(LaunchViewController(), animated: true)
+                }
                 return cell
             }
         case .basicInfo(parametrs: let parametrs):
             if let
-                cell = tableView.dequeueReusableCell(withIdentifier: "basicParametrsCellId") as? BasicParametrCell {
+                cell = tableView.dequeueReusableCell(withIdentifier: ReusableIds.basicParametersCell) as? BasicParametrCell {
                 cell.configure(parametrs: parametrs)
                 return cell
             }
         }
         return UITableViewCell()
+    }
+    
+    @objc func launchesButtonHandler(sender: UIButton) {
+        print("button")
+        if sender.tag == 14 {
+            print("sdfadf")
+        }
+        navigationController?.pushViewController(LaunchViewController(), animated: true)
     }
 }

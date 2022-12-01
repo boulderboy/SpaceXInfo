@@ -9,47 +9,54 @@ import UIKit
 
 final class BasicParametrCell: UITableViewCell, UICollectionViewDataSource, UICollectionViewDelegate {
 
-    var basicParametrs: RocketBasicParametrs? {
+    //MARK: - Constants
+    
+    private enum UI {
+        static let itemSize = CGSize(width: 96, height: 96)
+        static let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        static let rowHeight = CGFloat(144)
+    }
+    
+    //MARK: - Private
+    private var basicParametrs: RocketBasicParametrs? {
         didSet {
             elemets = basicParametrs!.toElements(isHeightInMeters: true, isDiametrMeters: true, isMassKg: true, isLoadInKg: false)
             parametersCollectionView.reloadData()
         }
     }
-    
-    var elemets = [BasicParametrElement]()
-    
-    var cells: [BasicParametrCollectionViewCell] = []
+    private var elemets: [BasicParametrElement] = []
+    private var cells: [BasicParametrCollectionViewCell] = []
     
     private let parametersCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 96, height: 96)
-        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        layout.itemSize = UI.itemSize
+        layout.sectionInset = UI.sectionInsets
 
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .black
         collectionView.alwaysBounceHorizontal = true
         collectionView.isScrollEnabled = true
         collectionView.showsHorizontalScrollIndicator = true
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "collectionCellId")
+        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: ReusableIds.basicParametersCollectionCell)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         
         return collectionView
     }()
     
+    // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        backgroundColor = .red
+
         contentView.addSubview(parametersCollectionView)
         
         NSLayoutConstraint.activate([
-            contentView.heightAnchor.constraint(equalToConstant: 144),
+            contentView.heightAnchor.constraint(equalToConstant: UI.rowHeight),
             
             parametersCollectionView.topAnchor.constraint(equalTo: topAnchor),
             parametersCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
             parametersCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            parametersCollectionView.heightAnchor.constraint(equalToConstant: 144),
+            parametersCollectionView.heightAnchor.constraint(equalToConstant: UI.rowHeight),
             parametersCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
         
@@ -61,17 +68,9 @@ final class BasicParametrCell: UITableViewCell, UICollectionViewDataSource, UICo
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupCollectionView() {
-        parametersCollectionView.delegate = self
-        parametersCollectionView.dataSource = self
-        parametersCollectionView.register(BasicParametrCollectionViewCell.self, forCellWithReuseIdentifier: "collectionCellId")
-        
-    }
-    
-
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCellId", for: indexPath) as? BasicParametrCollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ReusableIds.basicParametersCollectionCell, for: indexPath) as? BasicParametrCollectionViewCell {
             cell.configure(element: elemets[indexPath.row])
             return cell
         }
@@ -82,8 +81,16 @@ final class BasicParametrCell: UITableViewCell, UICollectionViewDataSource, UICo
         elemets.count
     }
     
-    func configure(parametrs: RocketBasicParametrs) {
-        self.basicParametrs = parametrs
+    // MARK: - Private methods
+    private func setupCollectionView() {
+        parametersCollectionView.delegate = self
+        parametersCollectionView.dataSource = self
+        parametersCollectionView.register(BasicParametrCollectionViewCell.self, forCellWithReuseIdentifier: ReusableIds.basicParametersCollectionCell)
+        
     }
     
+    //MARK: - Public methods
+    func configure(parametrs: RocketBasicParametrs) {
+        basicParametrs = parametrs
+    }
 }
