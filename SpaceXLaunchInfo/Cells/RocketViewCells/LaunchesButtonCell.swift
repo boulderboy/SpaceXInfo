@@ -23,14 +23,13 @@ final class LaunchesButtonCell: UITableViewCell {
         static let buttonHeightAnchor = CGFloat(80)
     }
     
-    var launchesButton: UIButton = {
+    private var launchesButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(UI.buttonTitle, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = UI.buttonCornerRadius
         button.backgroundColor = UI.buttonBackgrounColor
-        //  button.addTarget(self, action: #selector(getter: buttonAction), for: .touchUpInside)
         return button
     }()
     
@@ -57,7 +56,8 @@ final class LaunchesButtonCell: UITableViewCell {
         ])
     }
     
-    @objc func buttonTapped(_ sender: UIButton) {
+    @objc
+    private func buttonTapped(_ sender: UIButton) {
         print("button Tapped")
         buttonAction?()
     }

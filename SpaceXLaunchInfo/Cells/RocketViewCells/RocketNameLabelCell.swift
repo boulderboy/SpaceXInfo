@@ -15,7 +15,7 @@ final class RocketNameLabelCell: UITableViewCell {
         static let buttonImageName = "Setting"
     }
     
-    let rocketNameLabel: UILabel = {
+    private let rocketNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: Constants.fontGrotesque, size: UI.parameterNameTextSize)
@@ -23,15 +23,14 @@ final class RocketNameLabelCell: UITableViewCell {
         return label
     }()
     
-    let settingsButton: UIButton = {
+    private let settingsButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setBackgroundImage(UIImage(named: UI.buttonImageName), for: .normal)
         button.contentMode = .scaleToFill
         return button
     }()
-    
-    var rocketName: String?
+
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -40,10 +39,6 @@ final class RocketNameLabelCell: UITableViewCell {
         
         contentView.addSubview(rocketNameLabel)
         contentView.addSubview(settingsButton)
-        
-        if let rocketName = rocketName {
-            rocketNameLabel.text = rocketName
-        }
         
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: topAnchor),
