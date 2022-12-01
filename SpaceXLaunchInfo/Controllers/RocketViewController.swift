@@ -201,6 +201,11 @@ final class RocketViewController: UIViewController, UITableViewDelegate, UITable
             }
         case .rocketName(title: let title):
             if let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIds.rocketNameCell) as? RocketNameLabelCell {
+                cell.buttonAction = { [unowned self] in
+                    let settingsController = SettingsViewController()
+                    let navController = UINavigationController(rootViewController: settingsController)
+                    present(navController, animated: true)
+                }
                 cell.configure(rocketName: title)
                 return cell
             }

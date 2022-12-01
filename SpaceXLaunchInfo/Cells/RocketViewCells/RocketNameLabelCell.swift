@@ -28,9 +28,11 @@ final class RocketNameLabelCell: UITableViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setBackgroundImage(UIImage(named: UI.buttonImageName), for: .normal)
         button.contentMode = .scaleToFill
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
 
+    var buttonAction: (() -> ())?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -57,6 +59,11 @@ final class RocketNameLabelCell: UITableViewCell {
             settingsButton.heightAnchor.constraint(equalToConstant: 32),
             settingsButton.widthAnchor.constraint(equalToConstant: 32)
         ])
+    }
+    
+    @objc
+    private func buttonTapped() {
+        buttonAction?()
     }
     
     func configure(rocketName: String) {

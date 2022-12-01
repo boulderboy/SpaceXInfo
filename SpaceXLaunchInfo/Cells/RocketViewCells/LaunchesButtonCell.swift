@@ -30,6 +30,7 @@ final class LaunchesButtonCell: UITableViewCell {
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = UI.buttonCornerRadius
         button.backgroundColor = UI.buttonBackgrounColor
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -41,7 +42,7 @@ final class LaunchesButtonCell: UITableViewCell {
         backgroundColor = .black
         
         contentView.addSubview(launchesButton)
-        launchesButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        
         
         NSLayoutConstraint.activate([
             contentView.heightAnchor.constraint(equalToConstant: Constraints.buttonHeightAnchor),
