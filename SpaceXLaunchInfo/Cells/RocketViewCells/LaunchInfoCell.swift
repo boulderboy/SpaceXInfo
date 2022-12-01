@@ -9,12 +9,19 @@ import UIKit
 
 final class LaunchInfoCell: UITableViewCell {
     
+    private enum UI {
+        static let infoTextSize = CGFloat(16)
+        static let infoTextColor = UIColor(red: 0.79, green: 0.79, blue: 0.79, alpha: 1.00)
+        static let valueTextSize = CGFloat(16)
+        static let valueTextColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
+    }
+    
     private let infoLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = UIFont(name: Constants.fontGrotesque, size: 16)
-        label.textColor = UIColor(red: 0.79, green: 0.79, blue: 0.79, alpha: 1.00)
+        label.font = UIFont(name: Constants.fontGrotesque, size: UI.infoTextSize)
+        label.textColor = UI.infoTextColor
         return label
     }()
     
@@ -22,8 +29,8 @@ final class LaunchInfoCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right
-        label.font = UIFont(name: Constants.fontGrotesque, size: 16)
-        label.textColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
+        label.font = UIFont(name: Constants.fontGrotesque, size: UI.valueTextSize)
+        label.textColor = UI.valueTextColor
         return label
     }()
     

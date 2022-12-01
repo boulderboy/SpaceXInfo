@@ -9,6 +9,10 @@ import UIKit
 
 final class RocketBackgroundImageCell: UITableViewCell {
     
+    private enum UI {
+        static let roundedBottomCornerRadius = CGFloat(32)
+    }
+    
     private let backgroundImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -21,7 +25,7 @@ final class RocketBackgroundImageCell: UITableViewCell {
     private let roundedBottom: UIView = {
         let roundedView = UIView()
         roundedView.translatesAutoresizingMaskIntoConstraints = false
-        roundedView.layer.cornerRadius = 32
+        roundedView.layer.cornerRadius = UI.roundedBottomCornerRadius
         roundedView.backgroundColor = .black
         roundedView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         return roundedView

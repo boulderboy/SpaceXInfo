@@ -9,7 +9,7 @@ import UIKit
 
 final class NetworkService {
     
-    enum Constants {
+    enum UrlStrings {
         static let rocketUrl = "https://api.spacexdata.com/v4/rockets"
         static let launchUrl = "https://api.spacexdata.com/v4/launches"
     }
@@ -29,7 +29,7 @@ final class NetworkService {
     }
     
     func getRockets(completion: @escaping (Result<[Rocket], Error>) -> Void) {
-        guard let url = URL(string: Constants.rocketUrl) else {
+        guard let url = URL(string: UrlStrings.rocketUrl) else {
             completion(.failure(Errors.invalidUrl))
             return
         }
@@ -73,7 +73,7 @@ final class NetworkService {
     }
     
     func getLaunches(completion: @escaping (Result<[Launch], Error>) -> Void) {
-        guard let url = URL(string: Constants.launchUrl) else {
+        guard let url = URL(string: UrlStrings.launchUrl) else {
             completion(.failure(Errors.invalidUrl))
             return
         }

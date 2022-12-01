@@ -9,11 +9,20 @@ import UIKit
 
 final class DetailedParametersCell: UITableViewCell {
     
+    private enum UI {
+        static let parameterNameTextSize = CGFloat(16)
+        static let parameterNameTextColor = UIColor(red: 0.79, green: 0.79, blue: 0.79, alpha: 1.00)
+        static let parameterValueTextSize = CGFloat(16)
+        static let parameterValueTextColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
+        static let parametrMeasurmentTextSize = CGFloat(16)
+        static let parametrMeasurmentTextColor = UIColor(red: 0.56, green: 0.56, blue: 0.56, alpha: 1.00)
+    }
+    
     private let parametrNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: Constants.fontGrotesque, size: 16)
-        label.textColor = UIColor(red: 0.79, green: 0.79, blue: 0.79, alpha: 1.00)
+        label.font = UIFont(name: Constants.fontGrotesque, size: UI.parameterNameTextSize)
+        label.textColor = UI.parameterNameTextColor
         label.textAlignment = .left
         return label
     }()
@@ -21,8 +30,8 @@ final class DetailedParametersCell: UITableViewCell {
     private let parametrValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: Constants.fontGrotesque, size: 16)
-        label.textColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
+        label.font = UIFont(name: Constants.fontGrotesque, size: UI.parameterValueTextSize)
+        label.textColor = UI.parameterValueTextColor
         label.textAlignment = .right
         return label
     }()
@@ -30,8 +39,8 @@ final class DetailedParametersCell: UITableViewCell {
     private let parametrMeasurmentsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: Constants.fontGrotesque, size: 16)
-        label.textColor = UIColor(red: 0.56, green: 0.56, blue: 0.56, alpha: 1.00)
+        label.font = UIFont(name: Constants.fontGrotesque, size: UI.parametrMeasurmentTextSize)
+        label.textColor = UI.parametrMeasurmentTextColor
         label.textAlignment = .left
         label.text = ""
         return label

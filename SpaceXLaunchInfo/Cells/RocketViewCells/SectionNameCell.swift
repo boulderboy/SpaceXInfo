@@ -9,12 +9,17 @@ import UIKit
 
 final class SectionNameCell: UITableViewCell {
     
+    private enum UI {
+        static let sectionNameFontSize = CGFloat(16)
+        static let sectionNameFontColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
+    }
+    
     private let sectionNameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.font = UIFont(name: Constants.fontGrotesque, size: 16)
-        label.textColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
+        label.font = UIFont(name: Constants.fontGrotesque, size: UI.sectionNameFontSize)
+        label.textColor = UI.sectionNameFontColor
         return label
     }()
     
