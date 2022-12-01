@@ -221,7 +221,6 @@ final class RocketViewController: UIViewController, UITableViewDelegate, UITable
             }
         case .launchesButton:
             if let cell = tableView.dequeueReusableCell(withIdentifier: ReusableIds.launchesButtonCell) as? LaunchesButtonCell {
-                cell.launchesButton.tag = indexPath.row
                 cell.buttonAction = { [unowned self] in
                     print("yes")
                     navigationController?.pushViewController(LaunchViewController(), animated: true)
@@ -240,9 +239,6 @@ final class RocketViewController: UIViewController, UITableViewDelegate, UITable
     
     @objc func launchesButtonHandler(sender: UIButton) {
         print("button")
-        if sender.tag == 14 {
-            print("sdfadf")
-        }
         navigationController?.pushViewController(LaunchViewController(), animated: true)
     }
 }
