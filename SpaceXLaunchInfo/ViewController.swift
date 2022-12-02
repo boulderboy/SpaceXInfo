@@ -8,78 +8,99 @@
 
 import UIKit
 
-final class ViewController:
-    UIViewController,
-    UITableViewDelegate,
-    UITableViewDataSource {
-    
+final class ViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource {
+        
     private let networkService = NetworkService()
-    private var launches: [Launch] = [] {
-        didSet {
-            tableView.reloadData()
-        }
-    }
-    
-    private let tableView: UITableView = {
-        let tableView = UITableView(frame: .zero)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(LaunchCell.self, forCellReuseIdentifier: "cellId")
-        tableView.allowsSelection = false
-        return tableView
-    }()
+    private var rockets = [Rocket]()
+    private var rocketViewControllers = [RocketViewController]()
+    private var pageControl = UIPageControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .black
-        tableView.backgroundColor = .black
-        tableView.delegate = self
-        tableView.dataSource = self
-        view.addSubview(tableView)
-        setUpConstraints()
+        self.dataSource = self
+        self.delegate = self
         loadData()
     }
     
-    private func setUpConstraints() {
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+    private func setvc() {
+        setViewControllers([rocketViewControllers[0]], direction: .forward, animated: true)
+        
+    }
+    
+    private func setPageControl() {
+        pageControl = UIPageControl(frame: CGRect(x: 0, y: (view.window?.windowScene?.screen.bounds.maxY ?? 0) - 50, width: view.window?.windowScene?.screen.bounds.width ?? 100, height: 50))
+        pageControl.numberOfPages = rocketViewControllers.count
+        pageControl.currentPage = 0
+        pageControl.tintColor = .black
+        pageControl.pageIndicatorTintColor = .white
+        pageControl.currentPageIndicatorTintColor  = .red
+        self.view.addSubview(pageControl)
     }
     
     private func loadData() {
         DispatchQueue.global().async {
-            self.networkService.getLaunches { [weak self] result in
+            self.networkService.getRockets { [weak self] result in
                 DispatchQueue.main.async {
                     switch result {
-                    case .success(let launchesRe):
-                        self?.launches = launchesRe.filter { $0.rocket == "5e9d0d95eda69955f709d1eb"}
+                    case .success(let rockets):
+                        self?.rockets = rockets
+                        self?.createViewControllers()
                     case .failure(let error):
                         print(error)
                     }
                 }
-                
             }
         }
     }
+
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        launches.count
+    private func createViewControllers() {
+        for rocket in rockets {
+            rocketViewControllers.append(RocketViewController(rocket: rocket))
+        }
+        setvc()
+        setPageControl()
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let launch = launches[indexPath.row]
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "cellId") as? LaunchCell {
-            cell.rocketNameLabel.text = launch.name
-            let date = Services.dateFormat(date: String(launch.dateLocal.prefix(10)))
-            print(date)
-            cell.launchDateLabel.text = date
-            cell.launchImage.image = launch.success ?? false ? UIImage(named: "successLaunch") : UIImage(named: "failLaunch")
-            return cell
+    private func appendRocketViewController(rocket: Rocket, image: UIImage) {
+        
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let viewControllerIndex = rocketViewControllers.firstIndex(of: viewController as! RocketViewController) else { return nil }
+        
+        let previousIndex = viewControllerIndex - 1
+        
+        if previousIndex < 0 {
+            return nil
         }
-        return UITableViewCell()
+        
+        if previousIndex > rocketViewControllers.count {
+            return nil
+        }
+
+        return rocketViewControllers[previousIndex]
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let viewControllerIndex = rocketViewControllers.firstIndex(of: viewController as! RocketViewController) else { return nil }
+        
+        let nextIndex = viewControllerIndex + 1
+    
+        if nextIndex < 0 {
+            return nil
+        }
+        
+        if nextIndex == rocketViewControllers.count {
+            return rocketViewControllers[0]
+        }
+
+        return rocketViewControllers[nextIndex]
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        let content = pageViewController.viewControllers![0]
+        self.pageControl.currentPage = rocketViewControllers.firstIndex(of: content as! RocketViewController)!
     }
     
     
