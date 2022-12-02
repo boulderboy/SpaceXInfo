@@ -17,10 +17,17 @@ final class BasicParametrCell: UITableViewCell, UICollectionViewDataSource, UICo
         static let rowHeight = CGFloat(144)
     }
     
+    private let notificationName = Notification.Name(rawValue: Constants.notifaicationName)
+    
     //MARK: - Private
     private var basicParametrs: RocketBasicParametrs? {
         didSet {
-            elemets = basicParametrs!.toElements(isHeightInMeters: true, isDiametrMeters: true, isMassKg: true, isLoadInKg: false)
+            elemets = basicParametrs!.toElements(
+                isHeightInMeters: Settings.shared.heightInMeters,
+                isDiametrMeters: Settings.shared.diametrInMeters,
+                isMassKg: Settings.shared.massInKg,
+                isLoadInKg: Settings.shared.loadInKg
+            )
             parametersCollectionView.reloadData()
         }
     }
@@ -60,12 +67,22 @@ final class BasicParametrCell: UITableViewCell, UICollectionViewDataSource, UICo
             parametersCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
         
+        createObservers()
         setupCollectionView()
         
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func createObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(observerHandler), name: notificationName, object: nil)
+    }
+    
+    @objc
+    private func observerHandler() {
+        configure(parametrs: basicParametrs!)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

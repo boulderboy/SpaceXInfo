@@ -25,6 +25,8 @@
 		042784A52937BDF70064D0CE /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042784A42937BDF70064D0CE /* Services.swift */; };
 		042784A92938C3FC0064D0CE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042784A82938C3FC0064D0CE /* SettingsViewController.swift */; };
 		042784AC2938C4A60064D0CE /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042784AB2938C4A60064D0CE /* SettingsCell.swift */; };
+		042784AE293924B70064D0CE /* SettingsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042784AD293924B70064D0CE /* SettingsProvider.swift */; };
+		042784B02939D65A0064D0CE /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042784AF2939D65A0064D0CE /* Settings.swift */; };
 		04B872FC292D07D30078BA89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B872FB292D07D30078BA89 /* AppDelegate.swift */; };
 		04B872FE292D07D30078BA89 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B872FD292D07D30078BA89 /* SceneDelegate.swift */; };
 		04B87303292D07D30078BA89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04B87301292D07D30078BA89 /* Main.storyboard */; };
@@ -56,6 +58,8 @@
 		042784A42937BDF70064D0CE /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		042784A82938C3FC0064D0CE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		042784AB2938C4A60064D0CE /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		042784AD293924B70064D0CE /* SettingsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsProvider.swift; sourceTree = "<group>"; };
+		042784AF2939D65A0064D0CE /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		04B872F8292D07D30078BA89 /* SpaceXLaunchInfo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceXLaunchInfo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04B872FB292D07D30078BA89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04B872FD292D07D30078BA89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -171,6 +175,7 @@
 				04B87311292D20280078BA89 /* Model */,
 				042784912935EF3A0064D0CE /* ViewController.swift */,
 				04B87309292D07D50078BA89 /* Info.plist */,
+				042784AD293924B70064D0CE /* SettingsProvider.swift */,
 			);
 			path = SpaceXLaunchInfo;
 			sourceTree = "<group>";
@@ -182,6 +187,7 @@
 				04278493293633AE0064D0CE /* RocketBasicParametrs.swift */,
 				0427849A2937552A0064D0CE /* Launches.swift */,
 				0427849C29375EF00064D0CE /* BasicParametrElement.swift */,
+				042784AF2939D65A0064D0CE /* Settings.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -279,6 +285,7 @@
 			files = (
 				04B87310292D0ACA0078BA89 /* RocketViewController.swift in Sources */,
 				04278494293633AE0064D0CE /* RocketBasicParametrs.swift in Sources */,
+				042784B02939D65A0064D0CE /* Settings.swift in Sources */,
 				042784962936374F0064D0CE /* LaunchesButtonCell.swift in Sources */,
 				042784A32937B5240064D0CE /* LaunchCell.swift in Sources */,
 				0427848A293378380064D0CE /* BasicParametrCollectionViewCell.swift in Sources */,
@@ -296,6 +303,7 @@
 				042784A92938C3FC0064D0CE /* SettingsViewController.swift in Sources */,
 				0427849F2937AC940064D0CE /* ReusableIds.swift in Sources */,
 				0427848C29337DD30064D0CE /* DetailedParametersCell.swift in Sources */,
+				042784AE293924B70064D0CE /* SettingsProvider.swift in Sources */,
 				04278488293373360064D0CE /* BasicParametrCell.swift in Sources */,
 				04B87316292D23680078BA89 /* NetworkService.swift in Sources */,
 				0427849D29375EF00064D0CE /* BasicParametrElement.swift in Sources */,

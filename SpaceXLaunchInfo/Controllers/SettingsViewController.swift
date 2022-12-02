@@ -11,7 +11,7 @@ final class SettingsViewController:
     UIViewController,
     UITableViewDelegate,
     UITableViewDataSource {
-        
+    
         private let tableView: UITableView = {
             let tableView = UITableView(frame: .zero)
             tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -68,6 +68,9 @@ final class SettingsViewController:
         
         @objc
         private func dismissButtonHandler() {
+            print(Settings.shared.heightInMeters)
+            let notificationName = Notification.Name(rawValue: Constants.notifaicationName)
+            NotificationCenter.default.post(name: notificationName, object: nil)
             dismiss(animated: true)
         }
         
@@ -79,9 +82,24 @@ final class SettingsViewController:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "settingCellId") as? SettingsCell {
                 let setting = settings[indexPath.row]
                 let settingName = setting["name"]?[0]
+                var toggler: String = ""
+                switch setting {
+                case SettingsOptions.height:
+                    toggler = "height"
+                case SettingsOptions.diametr:
+                    toggler = "diametr"
+                case SettingsOptions.mass:
+                    toggler = "mass"
+                case SettingsOptions.load:
+                    toggler = "load"
+                default:
+                    break
+                }
                 let settingItems = setting["items"]
-                    cell.configure(name: settingName ?? "", items: settingItems ?? ["a", "b"])
-                    return cell
+                cell.toSwitch = toggler
+                cell.configure(name: settingName ?? "", items: settingItems ?? ["a", "b"])
+                
+                return cell
             }
             return UITableViewCell()
         }

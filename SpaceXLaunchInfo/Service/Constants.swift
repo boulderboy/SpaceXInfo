@@ -10,6 +10,7 @@ import UIKit
 
 enum Constants {
     static let fontGrotesque = "LabGrotesque-Regular"
+    static let notifaicationName = "settingsViewDismiss"
 }
 
 

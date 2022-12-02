@@ -9,6 +9,8 @@ import UIKit
 
 final class SettingsCell: UITableViewCell {
     
+    var toSwitch: String?
+    
     private enum UI {
         static let settingLabelTextColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
         static let settingLabelFontSize = CGFloat(16)
@@ -29,13 +31,44 @@ final class SettingsCell: UITableViewCell {
     private let settingSegmenteControll: UISegmentedControl = {
         let segmentedControll = UISegmentedControl(items: ["m", "ft"])
         segmentedControll.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControll.selectedSegmentIndex = 0
         segmentedControll.backgroundColor = UI.segmentedControlBackgroundColor
         segmentedControll.setTitleTextAttributes([.foregroundColor: UI.settingLabelTextColor], for: .normal)
         segmentedControll.setTitleTextAttributes([.foregroundColor: UI.segmentedControlBackgroundColor], for: .selected)
+        segmentedControll.addTarget(self, action: #selector(selectorHandler), for: .valueChanged)
         return segmentedControll
     }()
     
+    @objc
+    private func selectorHandler() {
+        switch toSwitch {
+        case "height":
+            Settings.shared.heightInMeters.toggle()
+        case "diametr":
+            Settings.shared.diametrInMeters.toggle()
+        case "mass":
+            Settings.shared.massInKg.toggle()
+        case "load":
+            Settings.shared.loadInKg.toggle()
+        default:
+            break
+        }
+    }
+    
+    private func getSelectedIndex() -> Int {
+        switch toSwitch {
+        case "height":
+            return Settings.shared.heightInMeters ? 0 : 1
+        case "diametr":
+            return Settings.shared.diametrInMeters ? 0 : 1
+        case "mass":
+            return Settings.shared.massInKg ? 0 : 1
+        case "load":
+            return Settings.shared.loadInKg ? 0 : 1
+        default:
+            return 0
+        }
+    }
+
     var itemsForSegmentedControl: [String] = []
 
     
@@ -43,7 +76,6 @@ final class SettingsCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     
         backgroundColor = .black
-        
         
         contentView.addSubview(settingLabel)
         contentView.addSubview(settingSegmenteControll)
@@ -67,6 +99,7 @@ final class SettingsCell: UITableViewCell {
         settingSegmenteControll.setTitle(items[0], forSegmentAt: 0)
         settingSegmenteControll.setTitle(items[1], forSegmentAt: 1)
         settingLabel.text = name
+        settingSegmenteControll.selectedSegmentIndex = getSelectedIndex()
     }
     
     required init?(coder: NSCoder) {
